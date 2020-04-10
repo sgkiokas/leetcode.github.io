@@ -28,7 +28,7 @@ let backspaceCompare = (S, T) => {
     };
 
     let removeHashElement = processedString => {
-        if(!processedString.includes('#') || processedString.length === 0) {
+        if(!processedString.includes(deletionIndicator) || processedString.length === 0) {
             return processedString;
         } else {
             if(processedString.includes(deletionIndicator)) {

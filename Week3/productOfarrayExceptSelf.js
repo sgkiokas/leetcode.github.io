@@ -17,7 +17,6 @@ let productExceptSelf = nums => {
     if(nums.length < 1) {
         throw new Error('The array has to have at least one element!');
     } else if(counter === nums.length) {
-        console.log(output);
         return output;
     } else {
         // remove the ith element temporarily from the input array

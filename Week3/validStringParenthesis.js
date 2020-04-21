@@ -20,58 +20,36 @@ let checkValidString = s => {
         return symbol === '*';
     });
 
-    let result;
-    let results = [];
+    let parenthesisStack = [];
+    let asterisksStack = [];
 
-    if(allAsterisks) {
-        return true;
-    } else if(s.length === 0) {
+    if(allAsterisks || s.length === 0) {
         return true;
     } else if(s.length === 1 && inputToArray[0] !== '*') {
         return false;
     } else {
-        // test the string validity in 3 phases
-        for(i = 0; i < 3; i++) {
-            let alteredInput = '';
-            switch (i) {
-                case 0:
-                    alteredInput = s.split('*').join('');
-                    break;
-                case 1:
-                    alteredInput = s.split('*').join(')');
-                    break;
-                case 2:
-                    alteredInput = s.split('*').join('(');
-                    break;
-                default:
-                    break;
-            }
-
-            let stack = [];
-            let parenthesisMapper = {
-                '(': ')'
-            };
-        
-            alteredInput.split('').forEach(symbol => {
-                if(symbol === '(') {
-                    stack.push(symbol);
-                } else if(symbol === ')') {
-                    let removedCharacter = stack.pop();
-                    if(parenthesisMapper[removedCharacter] !== symbol) {
-                        results.push(false);
-                    }
+        inputToArray.forEach(symbol => {
+            if(symbol === '(') {
+                parenthesisStack.push(symbol);
+            } else if(symbol === ')') {
+                if(parenthesisStack.length !== 0) {
+                    parenthesisStack.pop();
+                } else if(asterisksStack !== 0) {
+                    asterisksStack.pop();
+                } else {
+                    return false;
                 }
-            });
-
-            if(stack.length === 0) {
-                result = true;
-            } else {
-                result = false;
+            } else if(symbol === '*') {
+                asterisksStack.push(symbol);
             }
+        });
+    }
 
-            results.push(result);
+    while(parenthesisStack.length !== 0 && asterisksStack.length !== 0) {
+        if(parenthesisStack.pop() > asterisksStack.pop()){
+            return false;
         }
     }
 
-    return results.includes(true);
+    return (parenthesisStack.length === 0);
 };

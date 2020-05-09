@@ -18,7 +18,7 @@ let groupAnagrams = strs => {
         let letters = element.split('').sort();
 
         if(anagramsMapper[letters]) {
-            anagramsMapper[letters].push(element)
+            anagramsMapper[letters].push(element);
         } else {
             anagramsMapper[letters] = [element];
         }

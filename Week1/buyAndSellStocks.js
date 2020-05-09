@@ -46,10 +46,8 @@ let maxProfit = prices => {
     minPriceDayIndex = dayOfMinPrice(prices);
 
     if(stopTransactions) {
-        console.log(profit);
         return profit;
     } else if(isDescendingArray(prices)) {
-        console.log(profit);
         return profit;
     } else {
         // check if the best price is at the last day
